@@ -8,6 +8,7 @@ import CreationsPage from '../../routes/CreationsPage/CreationsPage'
 import CreationPage from '../../routes/CreationPage/CreationPage'
 import Nav from '../Nav/Nav'
 import Sidebar from '../Sidebar/Sidebar'
+import './App.css'
 
 
 class App extends Component {
@@ -57,9 +58,9 @@ class App extends Component {
               path={'/creations/:itemId'}
               component={CreationPage}
             />
-            {/* <Route
+            <Route
               component={NotFoundPage}
-            /> */}
+            />
           </Switch>
         </div>
         </main>

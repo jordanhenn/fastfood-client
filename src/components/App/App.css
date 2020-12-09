@@ -2,6 +2,22 @@
   text-align: center;
 }
 
+.desktop-nav {
+  display: none;
+}
+
+h1 {
+  margin-left: 60px;
+  margin-top: 35px;
+  font-size: 25px;
+}
+
+* {
+  box-sizing: border-box;
+  background-color: lightgreen;
+  color: white;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -14,7 +30,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #595d64;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -34,5 +50,14 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .desktop-nav {
+      display: block;
+  }
+  .mobile-nav {
+      display: none;
   }
 }

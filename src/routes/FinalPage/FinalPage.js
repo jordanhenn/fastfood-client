@@ -1,40 +1,79 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import { buns, sauces, fillings } from '../../data/fastfooddata'
+import FastFoodContext from '../../contexts/FastFoodContext'
 import './FinalPage.css'
 
 class FinalPage extends Component {
+  state = {
+    posted: false
+  }
+
+  renderButton = () => {
+    if (this.state.posted === true) {
+      return (
+      <p>Your creation has been posted. Thanks bud!</p>
+      )
+    } else {
+      return (
+      <button onClick={() => this.handlePost()}>POST</button>
+      )
+    }
+  }
+
+  handlePost = () => {
+    this.setState({
+      posted: true
+    })
+  }
+
+  componentDidMount() {
+    this.setState({
+      posted: false
+    })
+  }
+  static contextType = FastFoodContext
+
   render() {
     return (
       <div className='creation-area'>
-          <div className="title">
-              <h2 className="name">The Beast</h2>
-              <h4 className="creator">Created by Eric McDonald Jr.</h4>
+        <div className='form'>
+          <form>
+            <div className='input-and-label'>
+            <label htmlFor='creation-name'>Name it:</label>
+            <input id='creation-name' type='text'></input>
+            </div>
+            <div className='input-and-label'>
+            <label htmlFor='user-name'>Take credit:</label>
+            <input id='user-name' type='text'></input>
+            </div>
+          </form>
+          </div>
+          <div className='creation'>
+          <div className="bottom-bun">
+              <img style={{backgroundColor: 'lightgreen'}} alt='Bottom Bun' src={`../../images/buns/bottombun.svg`}/>
+          </div>
+          <div className="patty-two-final">
+              <img style={{backgroundColor: 'lightgreen'}} alt={fillings[this.context.fillingTwo].description} src={`../../images/fillings/${fillings[this.context.fillingTwo].name}.svg`}/>
+          </div>
+          <div className="patty-one-final">
+              <img style={{backgroundColor: 'lightgreen'}} alt={fillings[this.context.fillingOne].description} src={`../../images/fillings/${fillings[this.context.fillingOne].name}.svg`}/>
           </div>
           <div className="bun-final">
-              selected bun
+              <img style={{backgroundColor: 'lightgreen'}} alt={buns[this.context.bun].description} src={`../../images/buns/${buns[this.context.bun].name}.svg`}/>
+          </div>
           </div>
 
-          <div className="sauce-final">
-              selected sauce  
-          </div>
-
-          <div className="patty-one-final">
-                first patty/filling
-          </div>
-
-          <div className="patty-two-final">
-                second patty/filling
-          </div>
-
-          <div className="bottom-bun">
-              bottom bun
-          </div>
-          <div className="button-styling">
-
-           <div className="price">
-               total price
+           <div className="receipt">
+               <ul>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+               </ul>
            </div>
-          <button>POST</button>
+           <div className="button-styling">
+          {this.renderButton()}
           </div>
       </div>
     )

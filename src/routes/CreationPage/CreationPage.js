@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Rating from 'react-rating'
 import './CreationPage.css'
 
-class FinalPage extends Component {
+class CreationPage extends Component {
   render() {
     return (
       <div className='creation-area'>
@@ -53,4 +53,4 @@ class FinalPage extends Component {
   }
 }
 
-export default FinalPage
+export default CreationPage

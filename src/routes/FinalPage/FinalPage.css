@@ -1,0 +1,43 @@
+.creation {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+}
+
+.bun-final {
+    margin-bottom: -110px;
+}
+
+.patty-one-final {
+    margin-bottom: -130px;
+}
+
+.patty-two-final {
+    margin-bottom: -130px;
+}
+
+.bottom-bun {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -50px;
+}
+
+.button-styling {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-and-label {
+    display: flex;
+    flex-direction: row;
+}
