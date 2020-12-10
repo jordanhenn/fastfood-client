@@ -51,25 +51,25 @@ class FinalPage extends Component {
           </div>
           <div className='creation'>
           <div className="bottom-bun">
-              <img style={{backgroundColor: 'lightgreen'}} alt='Bottom Bun' src={`../../images/buns/bottombun.svg`}/>
+              <img alt='Bottom Bun' src={`../../images/buns/bottombun.svg`}/>
           </div>
           <div className="patty-two-final">
-              <img style={{backgroundColor: 'lightgreen'}} alt={fillings[this.context.fillingTwo].description} src={`../../images/fillings/${fillings[this.context.fillingTwo].name}.svg`}/>
+              <img alt={fillings[this.context.fillingTwo].description} src={`../../images/fillings/${fillings[this.context.fillingTwo].name}.svg`}/>
           </div>
           <div className="patty-one-final">
-              <img style={{backgroundColor: 'lightgreen'}} alt={fillings[this.context.fillingOne].description} src={`../../images/fillings/${fillings[this.context.fillingOne].name}.svg`}/>
+              <img alt={fillings[this.context.fillingOne].description} src={`../../images/fillings/${fillings[this.context.fillingOne].name}.svg`}/>
           </div>
           <div className="bun-final">
-              <img style={{backgroundColor: 'lightgreen'}} alt={buns[this.context.bun].description} src={`../../images/buns/${buns[this.context.bun].name}.svg`}/>
+              <img alt={buns[this.context.bun].description} src={`../../images/buns/${buns[this.context.bun].name}.svg`}/>
           </div>
           </div>
 
            <div className="receipt">
                <ul>
-                 <li></li>
-                 <li></li>
-                 <li></li>
-                 <li></li>
+                 <li>{buns[this.context.bun].description}</li>
+                 <li>{sauces[this.context.sauce].description}</li>
+                 <li>{fillings[this.context.fillingOne].description}</li>
+                 <li>{fillings[this.context.fillingTwo].description}</li>
                </ul>
            </div>
            <div className="button-styling">
