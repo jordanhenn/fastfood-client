@@ -2,36 +2,78 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { buns, sauces, fillings } from '../../data/fastfooddata'
 import FastFoodContext from '../../contexts/FastFoodContext'
+import FoodApiService from '../../services/food-api-service'
 import './FinalPage.css'
 
 class FinalPage extends Component {
   state = {
-    posted: false
+    posted: false,
+    price: null
   }
 
   renderButton = () => {
     if (this.state.posted === true) {
       return (
-      <p>Your creation has been posted. Thanks bud!</p>
+      <p>Your creation has been posted. Check out all the latest creations here.</p>
       )
     } else {
       return (
-      <button onClick={() => this.handlePost()}>POST</button>
+      <button onClick={(e) => this.handlePost(e)}>POST</button>
       )
     }
   }
 
-  handlePost = () => {
+  handlePost = (e) => {
+    const { user_name, creation_name } = e.target
+    const bun_id = FoodApiService.getBunByName(buns[this.context.bun].name).id
+    const fillingOne_id = FoodApiService.getBunByName(fillings[this.context.fillingOne].name).id
+    const fillingTwo_id = FoodApiService.getBunByName(fillings[this.context.fillingTwo].name).id
+    const sauce_id = FoodApiService.getBunByName(sauces[this.context.sauce].name).id
+    const price = this.state.price;
+
+    const newCreation = {
+      user_name: user_name.value,
+      creation_name: creation_name.value,
+      rating: null,
+      price,
+      number_of_ratings: 0,
+      bun_id,
+      fillingOne_id,
+      fillingTwo_id,
+      sauce_id
+    }
+
+    FoodApiService.postCreation(newCreation)
+
     this.setState({
       posted: true
     })
   }
 
   componentDidMount() {
+    const fillingOneItem = FoodApiService.getItemByName(fillings[this.context.fillingOne].name)
+    const fillingTwoItem = FoodApiService.getItemByName(fillings[this.context.fillingTwo].name)
+    const bun = FoodApiService.getBunByName(buns[this.context.bun].name)
+
+    if (fillingOneItem.bun_id === bun.id || fillingTwoItem.bun_id === bun.id) {
+      const bunPrice = 0;
+    }
+    else {
+    const bunPrice = FoodApiService.getAllItems().find(item => item.bun_id === bun.id)
+    }
     this.setState({
-      posted: false
+      posted: false,
+      price: fillingOneItem.price + fillingTwoItem.price + bunPrice
     })
   }
+
+  componentWillUnmount() {
+    this.setState({
+      posted: false,
+      price: null
+    })
+  }
+
   static contextType = FastFoodContext
 
   render() {
