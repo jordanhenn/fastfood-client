@@ -62,3 +62,5 @@ class Creation extends Component {
     )
   }
 }
+
+export default Creation

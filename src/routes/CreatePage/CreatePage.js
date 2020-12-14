@@ -94,7 +94,7 @@ class CreatePage extends Component {
   }
 
   handleFillingTwoBackClick = () => {
-    const currentIndex = this.state.fillingTwondex
+    const currentIndex = this.state.fillingTwoIndex
     if (currentIndex !== 0) {
       this.setState({
         fillingTwoIndex: currentIndex - 1
