@@ -112,6 +112,7 @@ class FinalPage extends Component {
                  <li>{sauces[this.context.sauce].description}</li>
                  <li>{fillings[this.context.fillingOne].description}</li>
                  <li>{fillings[this.context.fillingTwo].description}</li>
+                 <li>{this.state.price}</li>
                </ul>
            </div>
            <div className="button-styling">
