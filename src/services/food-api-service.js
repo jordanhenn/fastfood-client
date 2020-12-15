@@ -3,7 +3,7 @@ import config from '../config'
 
 const FoodApiService = {
   getBunByName(name) {
-    return fetch(`${config.API_ENDPOINT}/food/buns&bun_name=${name}`, {
+    return fetch(`${config.API_ENDPOINT}/food/buns?bun_name=${name}`, {
       headers: {
       },
     })
@@ -25,7 +25,7 @@ const FoodApiService = {
       )
   },
   getSauceByName(name) {
-    return fetch(`${config.API_ENDPOINT}/food/sauces&sauce_name=${name}`, {
+    return fetch(`${config.API_ENDPOINT}/food/sauces?sauce_name=${name}`, {
       headers: {
       },
     })
@@ -47,7 +47,7 @@ const FoodApiService = {
       )
   },
   getFillingByName(name) {
-    return fetch(`${config.API_ENDPOINT}/food/fillings&filling_name=${name}`, {
+    return fetch(`${config.API_ENDPOINT}/food/fillings?filling_name=${name}`, {
       headers: {
       },
     })
@@ -80,7 +80,7 @@ const FoodApiService = {
         )
   },
   getItemByName(name) {
-    return fetch(`${config.API_ENDPOINT}/food/items&item_name=${name}`, {
+    return fetch(`${config.API_ENDPOINT}/food/items?item_name=${name}`, {
         headers: {
         },
       })

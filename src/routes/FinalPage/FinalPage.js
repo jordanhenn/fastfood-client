@@ -8,6 +8,10 @@ import './FinalPage.css'
 class FinalPage extends Component {
   state = {
     posted: false,
+    items: [],
+    fillingOne: {},
+    fillingTwo: {},
+    bun: {},
     price: null
   }
 
@@ -21,6 +25,26 @@ class FinalPage extends Component {
       <button onClick={(e) => this.handlePost(e)}>POST</button>
       )
     }
+  }
+
+  calculatePrice = () => {
+    const { fillingOne, fillingTwo, bun, items } = this.state
+    let bunPrice
+    if (fillingOne.bun_id === bun.id || fillingTwo.bun_id === bun.id) {
+      bunPrice = 0;
+    }
+    
+    if (fillingOne.bun_id !== bun.id && fillingTwo.bun_id !== bun.id) {
+      bunPrice = items.find(item => item.bun_id === bun.id).price
+    }
+
+    console.log(bunPrice)
+    console.log(fillingOne.price)
+    console.log(fillingTwo.price)
+
+    this.setState({
+      price: fillingOne.price + fillingTwo.price + bunPrice
+    })
   }
 
   handlePost = (e) => {
@@ -51,19 +75,31 @@ class FinalPage extends Component {
   }
 
   componentDidMount() {
-    const fillingOneItem = FoodApiService.getItemByName(fillings[this.context.fillingOne].name)
-    const fillingTwoItem = FoodApiService.getItemByName(fillings[this.context.fillingTwo].name)
-    const bun = FoodApiService.getBunByName(buns[this.context.bun].name)
+    FoodApiService.getItemByName(fillings[this.context.fillingOne].name)
+      .then(result => {
+        this.setState({
+          fillingOne: result
+        })
+      })
+    FoodApiService.getItemByName(fillings[this.context.fillingTwo].name)
+    .then(result => {
+      this.setState({
+        fillingTwo: result
+      })
+    })
+    
+    FoodApiService.getBunByName(buns[this.context.bun].name)
+    .then(result => {
+      this.setState({
+        bun: result
+      })
+    })
 
-    if (fillingOneItem.bun_id === bun.id || fillingTwoItem.bun_id === bun.id) {
-      const bunPrice = 0;
-    }
-    else {
-    const bunPrice = FoodApiService.getAllItems().find(item => item.bun_id === bun.id)
-    }
-    this.setState({
-      posted: false,
-      price: fillingOneItem.price + fillingTwoItem.price + bunPrice
+    FoodApiService.getAllItems()
+    .then(result => {
+      this.setState({
+        items: result
+      })
     })
   }
 
@@ -112,8 +148,9 @@ class FinalPage extends Component {
                  <li>{sauces[this.context.sauce].description}</li>
                  <li>{fillings[this.context.fillingOne].description}</li>
                  <li>{fillings[this.context.fillingTwo].description}</li>
-                 <li>{this.state.price}</li>
                </ul>
+               <button onClick={this.calculatePrice}>Calculate Price</button>
+               <p>{this.state.price && this.state.price}</p>
            </div>
            <div className="button-styling">
           {this.renderButton()}

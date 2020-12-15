@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Rating from 'react-rating';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import Rating from 'react-rating'
 import FoodApiService from '../../services/food-api-service'
-import './Creation.css';
+import './Creation.css'
 
 class Creation extends Component {
   
@@ -52,7 +52,7 @@ class Creation extends Component {
           </div>
         <Rating
                 readonly="true"
-                initialRating={props.rating}
+                initialRating={this.props.rating}
                 emptySymbol={<img src="./emptysymbol.jpg" className="icon" />}
                 fullSymbol={<img src="./opensymbol.jpg" className="icon" />}>
                 </Rating>
