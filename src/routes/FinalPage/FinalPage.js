@@ -12,47 +12,61 @@ class FinalPage extends Component {
     fillingOne: {},
     fillingTwo: {},
     bun: {},
-    price: null
+    sauce: {},
+    price: null,
+    priceCalculated: false,
+    postedCreation: {}
   }
 
   renderButton = () => {
-    if (this.state.posted === true) {
+    if (this.state.posted === true && this.state.priceCalculated === true) {
       return (
-      <p>Your creation has been posted. Check out all the latest creations here.</p>
+      <p>Your creation has been posted. Check it out <Link to={`/creations/${this.state.postedCreation.id}`}>here.</Link></p>
       )
-    } else {
+    } 
+    else if (this.state.priceCalculated === true && this.state.posted === false) {
       return (
-      <button onClick={(e) => this.handlePost(e)}>POST</button>
+        ''
+      )
+    }
+    else {
+      return (
+        <button onClick={this.calculatePrice}>How much would it cost?</button>
       )
     }
   }
 
   calculatePrice = () => {
     const { fillingOne, fillingTwo, bun, items } = this.state
+    console.log(fillingOne, fillingTwo, bun, items)
+
+    const fillingOneItem = items.find(item => item.filling_id === fillingOne.id)
+    const fillingTwoItem = items.find(item => item.filling_id === fillingTwo.id)
+
+    console.log(fillingOneItem, fillingTwoItem)
+
     let bunPrice
-    if (fillingOne.bun_id === bun.id || fillingTwo.bun_id === bun.id) {
+    if (fillingOneItem.bun_id === bun.id || fillingTwoItem.bun_id === bun.id) {
       bunPrice = 0;
     }
     
-    if (fillingOne.bun_id !== bun.id && fillingTwo.bun_id !== bun.id) {
+    if (fillingOneItem.bun_id !== bun.id && fillingTwoItem.bun_id !== bun.id) {
       bunPrice = items.find(item => item.bun_id === bun.id).price
     }
 
-    console.log(bunPrice)
-    console.log(fillingOne.price)
-    console.log(fillingTwo.price)
-
     this.setState({
-      price: fillingOne.price + fillingTwo.price + bunPrice
+      price: fillingOneItem.price + fillingTwoItem.price + bunPrice,
+      priceCalculated: true
     })
   }
 
   handlePost = (e) => {
+    e.preventDefault()
     const { user_name, creation_name } = e.target
-    const bun_id = FoodApiService.getBunByName(buns[this.context.bun].name).id
-    const fillingOne_id = FoodApiService.getBunByName(fillings[this.context.fillingOne].name).id
-    const fillingTwo_id = FoodApiService.getBunByName(fillings[this.context.fillingTwo].name).id
-    const sauce_id = FoodApiService.getBunByName(sauces[this.context.sauce].name).id
+    const bun_id = this.state.bun.id
+    const fillingOne_id = this.state.fillingOne.id
+    const fillingTwo_id = this.state.fillingTwo.id
+    const sauce_id = this.state.sauce.id
     const price = this.state.price;
 
     const newCreation = {
@@ -62,12 +76,19 @@ class FinalPage extends Component {
       price,
       number_of_ratings: 0,
       bun_id,
-      fillingOne_id,
-      fillingTwo_id,
+      fillingone_id: fillingOne_id,
+      fillingtwo_id: fillingTwo_id,
       sauce_id
     }
 
+    console.log(newCreation)
+
     FoodApiService.postCreation(newCreation)
+      .then(result => {
+        this.setState({
+          postedCreation: result
+        })
+      })
 
     this.setState({
       posted: true
@@ -75,13 +96,14 @@ class FinalPage extends Component {
   }
 
   componentDidMount() {
-    FoodApiService.getItemByName(fillings[this.context.fillingOne].name)
+    FoodApiService.getFillingByName(fillings[this.context.fillingOne].name)
       .then(result => {
         this.setState({
           fillingOne: result
         })
       })
-    FoodApiService.getItemByName(fillings[this.context.fillingTwo].name)
+
+    FoodApiService.getFillingByName(fillings[this.context.fillingTwo].name)
     .then(result => {
       this.setState({
         fillingTwo: result
@@ -92,6 +114,13 @@ class FinalPage extends Component {
     .then(result => {
       this.setState({
         bun: result
+      })
+    })
+
+    FoodApiService.getSauceByName(sauces[this.context.sauce].name)
+    .then(result => {
+      this.setState({
+        sauce: result
       })
     })
 
@@ -106,7 +135,9 @@ class FinalPage extends Component {
   componentWillUnmount() {
     this.setState({
       posted: false,
-      price: null
+      priceCalculated: false,
+      price: null,
+      postedCreation: {}
     })
   }
 
@@ -115,18 +146,6 @@ class FinalPage extends Component {
   render() {
     return (
       <div className='creation-area'>
-        <div className='form'>
-          <form>
-            <div className='input-and-label'>
-            <label htmlFor='creation-name'>Name it:</label>
-            <input id='creation-name' type='text'></input>
-            </div>
-            <div className='input-and-label'>
-            <label htmlFor='user-name'>Take credit:</label>
-            <input id='user-name' type='text'></input>
-            </div>
-          </form>
-          </div>
           <div className='creation'>
           <div className="bottom-bun">
               <img alt='Bottom Bun' src={`../../images/buns/bottombun.svg`}/>
@@ -149,12 +168,38 @@ class FinalPage extends Component {
                  <li>{fillings[this.context.fillingOne].description}</li>
                  <li>{fillings[this.context.fillingTwo].description}</li>
                </ul>
-               <button onClick={this.calculatePrice}>Calculate Price</button>
-               <p>{this.state.price && this.state.price}</p>
+               <p>{this.state.price && `It'll run you about ${this.state.price}`}</p>
            </div>
            <div className="button-styling">
           {this.renderButton()}
           </div>
+          {this.state.priceCalculated && !this.state.posted &&
+          <form
+          className='PostForm'
+          onSubmit={this.handlePost}
+        >
+          <div className='creation_name_div'>
+            <label htmlFor='creation_name'>
+              Name your creation:
+            </label>
+            <input
+              name='creation_name'
+              id='creation_name'
+              type='text'/>
+          </div>
+          <div className='user_name_div'>
+            <label htmlFor='user_name'>
+              Take credit:
+            </label>
+            <input
+              name='user_name'
+              type='text'
+              id='user_name'/>
+          </div>
+          <button className="post" type='submit'>
+            Share your creation with other FFE users
+          </button>
+        </form>}
       </div>
     )
   }

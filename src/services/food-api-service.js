@@ -108,7 +108,7 @@ const FoodApiService = {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        creation
+        ...creation
       }),
     })
       .then(res =>
