@@ -10,43 +10,53 @@ class CreationPage extends Component {
   }
 
   state = {
+    creation: '',
     bun: '',
     fillingOne: '',
     fillingTwo: '',
     sauce: '',
-    price: '',
-    user_name: '',
-    creation_name: '',
-    date_created: ''
   }
 
   componentDidMount() {
     const { creationId } = this.props.match.params
-    const creation = FoodApiService.getCreationById(creationId)
-    const bun = FoodApiService.getBunById(creation.bun_id)
-    const fillingOne = FoodApiService.getFillingById(creation.fillingOne_id)
-    const fillingTwo = FoodApiService.getFillingById(creation.fillingTwo_id)
-    const sauce = FoodApiService.getSauceById(creation.sauce_id)
-    const { price, user_name, creation_name, date_created } = creation
-
-  this.setState({
-      bun,
-      fillingOne,
-      fillingTwo,
-      sauce,
-      price,
-      user_name,
-      creation_name,
-      date_created
-    })
+    FoodApiService.getCreationById(creationId)
+      .then(creation => {
+        this.setState({
+          creation
+        })
+        FoodApiService.getBunById(creation.bun_id)
+        .then(bun => {
+          this.setState({
+          bun
+        })
+        })
+        FoodApiService.getFillingById(creation.fillingone_id)
+          .then(fillingOne => {
+            this.setState({
+              fillingOne
+            })
+          })
+        FoodApiService.getFillingById(creation.fillingtwo_id)
+          .then(fillingTwo => {
+            this.setState({
+              fillingTwo
+            })
+          })
+        FoodApiService.getSauceById(creation.sauce_id)
+          .then(sauce => {
+            this.setState({
+              sauce
+            })
+          })
+      })
   }
 
   render() {
     return (
       <div className='creation-area'>
           <div className="title">
-              <h2 className="name">{this.state.creation_name}</h2>
-              <h4 className="creator">Created by {this.state.user_name}</h4>
+              <h2 className="name">{this.state.creation.creation_name}</h2>
+              <h4 className="creator">Created by {this.state.creation.user_name}</h4>
               <Rating
                 readonly="true"
                 initialRating={3}
@@ -75,7 +85,7 @@ class CreationPage extends Component {
                  <li>{this.state.sauce.description}</li>
                  <li>{this.state.fillingOne.description}</li>
                  <li>{this.state.fillingTwo.description}</li>
-                 <li>{this.state.price}</li>
+                 <li>{this.state.creation.price}</li>
                </ul>
            </div>
          <div className="rate-and-share">

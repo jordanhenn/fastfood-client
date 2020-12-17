@@ -14,17 +14,31 @@ class Creation extends Component {
   }
 
   componentDidMount() {
-    const bun = FoodApiService.getBunById(this.props.bun_id)
-    const fillingOne = FoodApiService.getFillingById(this.props.fillingOne_id)
-    const fillingTwo = FoodApiService.getFillingById(this.props.fillingTwo_id)
-    const sauce = FoodApiService.getSauceById(this.props.sauce_id)
-
-    this.setState({
-      bun,
-      fillingOne,
-      fillingTwo,
-      sauce
-    })
+    console.log(this.props.bun_id, this.props.fillingone_id, this.props.fillingtwo_id, this.props.sauce_id)
+    FoodApiService.getBunById(this.props.bun_id)
+      .then(bun => {
+        this.setState({
+          bun: bun
+        })
+      })
+    FoodApiService.getFillingById(this.props.fillingone_id)
+      .then(fillingOne => {
+        this.setState({
+          fillingOne: fillingOne
+        })
+      })
+    FoodApiService.getFillingById(this.props.fillingtwo_id)
+      .then(fillingTwo => {
+        this.setState({
+          fillingTwo: fillingTwo
+        })
+      })
+    FoodApiService.getSauceById(this.props.sauce_id)
+      .then(sauce => {
+        this.setState({
+          sauce: sauce
+        })
+      })
   }
 
   render() {
@@ -41,20 +55,20 @@ class Creation extends Component {
               <img alt='Bottom Bun' src={`../../images/buns/bottombun.svg`}/>
           </div>
           <div className="patty-two-final">
-              <img alt={this.state.fillingTwo.description} src={`../../images/fillings/${this.state.fillingTwo.name}.svg`}/>
+              <img alt={this.state.fillingTwo.filling_description} src={`../../images/fillings/${this.state.fillingTwo.filling_name}.svg`}/>
           </div>
           <div className="patty-one-final">
-              <img alt={this.state.fillingOne.description} src={`../../images/fillings/${this.state.fillingOne.name}.svg`}/>
+              <img alt={this.state.fillingOne.filling_description} src={`../../images/fillings/${this.state.fillingOne.filling_name}.svg`}/>
           </div>
           <div className="bun-final">
-              <img alt={this.state.bun.description} src={`../../images/buns/${this.state.bun.name}.svg`}/>
+              <img alt={this.state.bun.bun_description} src={`../../images/buns/${this.state.bun.bun_name}.svg`}/>
           </div>
           </div>
         <Rating
                 readonly="true"
                 initialRating={this.props.rating}
-                emptySymbol={<img src="./emptysymbol.jpg" className="icon" />}
-                fullSymbol={<img src="./opensymbol.jpg" className="icon" />}>
+                emptySymbol={<img alt="empty rating" src="./emptysymbol.jpg" className="icon" />}
+                fullSymbol={<img alt="full rating" src="./opensymbol.jpg" className="icon" />}>
                 </Rating>
       </div>
     </Link>

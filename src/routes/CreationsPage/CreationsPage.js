@@ -10,17 +10,12 @@ class CreationsPage extends Component {
   }
 
   componentDidMount() {
-    const creations = FoodApiService.getCreations()
-
-    this.setState({
-      creations
-    })
-  }
-
-  componentWillUnmount() {
-    this.setState({
-      creations: []
-    })
+    FoodApiService.getCreations()
+      .then(creations => {
+        this.setState({
+          creations
+        })
+      })
   }
 
   render() {

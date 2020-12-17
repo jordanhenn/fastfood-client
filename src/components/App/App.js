@@ -51,11 +51,12 @@ class App extends Component {
               component={FinalPage}
             />
             <Route
+              exact
               path={'/creations/'}
               component={CreationsPage}
             />
             <Route
-              path={'/creations/:itemId'}
+              path={'/creations/:creationId'}
               component={CreationPage}
             />
             <Route
