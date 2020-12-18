@@ -180,7 +180,7 @@ class CreatePage extends Component {
               </CarouselProvider>
           </div>
           <div className='button-area'>
-          <Link style={{ textDecoration: 'none', color: 'black' }} to={'/final'}>CREATE</Link>
+          <Link style={{ textDecoration: 'none' }} to={'/final'}>CREATE</Link>
           </div>
       </div>
     ) 

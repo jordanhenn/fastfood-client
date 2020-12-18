@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { buns, sauces, fillings } from '../../data/fastfooddata'
 import FastFoodContext from '../../contexts/FastFoodContext'
 import FoodApiService from '../../services/food-api-service'
+import CurrencyFormat from 'react-currency-format'
 import './FinalPage.css'
 
 class FinalPage extends Component {
@@ -145,30 +146,31 @@ class FinalPage extends Component {
 
   render() {
     return (
-      <div className='creation-area'>
+      <div className='final-area'>
           <div className='creation'>
           <div className="bottom-bun">
-              <img alt='Bottom Bun' src={`../../images/buns/bottombun.svg`}/>
+              <img className="final-img" alt='Bottom Bun' src={`../../images/buns/bottombun.svg`}/>
           </div>
           <div className="patty-two-final">
-              <img alt={fillings[this.context.fillingTwo].description} src={`../../images/fillings/${fillings[this.context.fillingTwo].name}.svg`}/>
+              <img className="final-img" alt={fillings[this.context.fillingTwo].description} src={`../../images/fillings/${fillings[this.context.fillingTwo].name}.svg`}/>
           </div>
           <div className="patty-one-final">
-              <img alt={fillings[this.context.fillingOne].description} src={`../../images/fillings/${fillings[this.context.fillingOne].name}.svg`}/>
+              <img className="final-img" alt={fillings[this.context.fillingOne].description} src={`../../images/fillings/${fillings[this.context.fillingOne].name}.svg`}/>
           </div>
           <div className="bun-final">
-              <img alt={buns[this.context.bun].description} src={`../../images/buns/${buns[this.context.bun].name}.svg`}/>
+              <img className="final-img" alt={buns[this.context.bun].description} src={`../../images/buns/${buns[this.context.bun].name}.svg`}/>
           </div>
           </div>
 
            <div className="receipt">
-               <ul>
+               <ul className="receipt-list">
                  <li>{buns[this.context.bun].description}</li>
                  <li>{sauces[this.context.sauce].description}</li>
                  <li>{fillings[this.context.fillingOne].description}</li>
                  <li>{fillings[this.context.fillingTwo].description}</li>
+                 <li><p className="receipt-line">__________________</p></li>
+                 <li className="receipt-cost">{this.state.price && <CurrencyFormat decimalScale={2} fixedDecimalScale={true} prefix={'$'} value={this.state.price}/>}</li>
                </ul>
-               <p>{this.state.price && `It'll run you about ${this.state.price}`}</p>
            </div>
            <div className="button-styling">
           {this.renderButton()}

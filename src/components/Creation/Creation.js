@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Rating from 'react-rating'
+import 'font-awesome/css/font-awesome.min.css';
 import FoodApiService from '../../services/food-api-service'
 import './Creation.css'
 
@@ -44,32 +45,31 @@ class Creation extends Component {
   render() {
   return (
     <li className='creations-list-item'>
-    <Link to={`/creations/${this.props.id}`}>
+    <Link style={{ textDecoration: 'none' }} to={`/creations/${this.props.id}`}>
       <div className='Creation-Name-User'>
         <h3 className='Creation Name'>
             {this.props.creation_name}
         </h3>
         <h4>{this.props.user_name}</h4>
         <div className='creation-item'>
-          <div className="bottom-bun">
-              <img alt='Bottom Bun' src={`../../images/buns/bottombun.svg`}/>
+          <div className="bottom-bun-creation">
+              <img className="creation-img" alt='Bottom Bun' src={`../../images/buns/bottombun.svg`}/>
           </div>
-          <div className="patty-two-final">
-              <img alt={this.state.fillingTwo.filling_description} src={`../../images/fillings/${this.state.fillingTwo.filling_name}.svg`}/>
+          <div className="patty-two-creation">
+              <img className="creation-img" alt={this.state.fillingTwo.filling_description} src={`../../images/fillings/${this.state.fillingTwo.filling_name}.svg`}/>
           </div>
-          <div className="patty-one-final">
-              <img alt={this.state.fillingOne.filling_description} src={`../../images/fillings/${this.state.fillingOne.filling_name}.svg`}/>
+          <div className="patty-one-creation">
+              <img className="creation-img" alt={this.state.fillingOne.filling_description} src={`../../images/fillings/${this.state.fillingOne.filling_name}.svg`}/>
           </div>
-          <div className="bun-final">
-              <img alt={this.state.bun.bun_description} src={`../../images/buns/${this.state.bun.bun_name}.svg`}/>
+          <div className="bun-creation">
+              <img className="creation-img" alt={this.state.bun.bun_description} src={`../../images/buns/${this.state.bun.bun_name}.svg`}/>
           </div>
           </div>
         <Rating
                 readonly="true"
                 initialRating={this.props.rating}
-                emptySymbol={<img alt="empty rating" src="./emptysymbol.jpg" className="icon" />}
-                fullSymbol={<img alt="full rating" src="./opensymbol.jpg" className="icon" />}>
-                </Rating>
+                emptySymbol="fa fa-star-o fa-2x"
+                fullSymbol="fa fa-star fa-2x"/>
       </div>
     </Link>
     </li>
