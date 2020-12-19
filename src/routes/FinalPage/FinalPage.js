@@ -187,7 +187,8 @@ class FinalPage extends Component {
             <input
               name='creation_name'
               id='creation_name'
-              type='text'/>
+              type='text'
+              placeholder='The Big Kahuna'/>
           </div>
           <div className='input-and-label'>
             <label htmlFor='user_name'>
@@ -196,7 +197,8 @@ class FinalPage extends Component {
             <input
               name='user_name'
               type='text'
-              id='user_name'/>
+              id='user_name'
+              placeholder='Robby Bobby'/>
           </div>
           <button className="post" type='submit'>
             Share your creation with other FFE users

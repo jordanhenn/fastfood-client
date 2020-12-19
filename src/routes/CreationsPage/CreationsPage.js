@@ -9,6 +9,24 @@ class CreationsPage extends Component {
     creations: []
   }
 
+  renderCreations = () => {
+    if (this.state.creations.length === 0) {
+      return (
+        <p>Loading, please wait...</p>
+      )
+    }
+    else {
+      return (
+        this.state.creations.map(creation =>
+          <Creation
+            key={creation.id}
+            {...creation}
+          />
+        )
+      )
+    }
+  }
+
   componentDidMount() {
     FoodApiService.getCreations()
       .then(creations => {
@@ -23,12 +41,7 @@ class CreationsPage extends Component {
       <section className='Creations'>
         <h2>Previous Creations</h2>
         <ul className='Creations-List' aria-live='polite'>
-          {this.state.creations.map(creation =>
-            <Creation
-              key={creation.id}
-              {...creation}
-            />
-          )}
+          {this.renderCreations()}
         </ul>
       </section>
     );

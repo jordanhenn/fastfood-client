@@ -107,6 +107,9 @@ class CreatePage extends Component {
   render() {
     return (
       <div className='create-area'>
+          <p className='directions'>
+              Select the bun, sauce, and fillings for your new creation below.
+            </p> 
           <div className="selection-area">
           <h3>{buns[this.state.bunIndex].description}</h3>
               <CarouselProvider
