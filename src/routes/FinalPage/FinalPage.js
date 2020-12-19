@@ -24,7 +24,12 @@ class FinalPage extends Component {
       return (
       <p>Your creation has been posted. Check it out <Link to={`/creations/${this.state.postedCreation.id}`}>here.</Link></p>
       )
-    } 
+    }
+    else if (this.state.priceCalculate === true && this.state.price === null && this.state.posted === false) {
+      return (
+        'Calculating price, please wait...'
+      )
+    }
     else if (this.state.priceCalculated === true && this.state.posted === false) {
       return (
         ''
@@ -164,12 +169,13 @@ class FinalPage extends Component {
 
            <div className="receipt">
                <ul className="receipt-list">
+                 <li>Receipt:</li>
                  <li>{buns[this.context.bun].description}</li>
                  <li>{sauces[this.context.sauce].description}</li>
                  <li>{fillings[this.context.fillingOne].description}</li>
                  <li>{fillings[this.context.fillingTwo].description}</li>
                  <li><p className="receipt-line">__________________</p></li>
-                 <li className="receipt-cost">{this.state.price && <CurrencyFormat decimalScale={2} fixedDecimalScale={true} prefix={'$'} value={this.state.price}/>}</li>
+                 <li className="receipt-cost">{this.state.price && <CurrencyFormat displayType={'text'} decimalScale={2} fixedDecimalScale={true} prefix={'$'} value={this.state.price}/>}</li>
                </ul>
            </div>
            <div className="button-styling">

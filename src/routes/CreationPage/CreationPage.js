@@ -107,12 +107,13 @@ class CreationPage extends Component {
 
            <div className="receipt">
                <ul className="receipt-list">
+                 <li>Receipt:</li>
                  <li>{this.state.bun.bun_description} Bun</li>
                  <li>{this.state.sauce.sauce_description}</li>
                  <li>{this.state.fillingOne.filling_description}</li>
                  <li>{this.state.fillingTwo.filling_description}</li>
                  <li><p className="receipt-line">__________________</p></li>
-                 <li className="receipt-cost"><CurrencyFormat decimalScale={2} fixedDecimalScale={true} prefix={'$'} value={this.state.creation.price}/></li>
+                 <li className="receipt-cost"><CurrencyFormat displayType={'text'} decimalScale={2} fixedDecimalScale={true} prefix={'$'} value={this.state.creation.price}/></li>
                </ul>
            </div>
       </div>
