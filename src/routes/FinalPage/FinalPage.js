@@ -180,16 +180,16 @@ class FinalPage extends Component {
           className='PostForm'
           onSubmit={this.handlePost}
         >
-          <div className='creation_name_div'>
+          <div className='input-and-label'>
             <label htmlFor='creation_name'>
-              Name your creation:
+              Name it:
             </label>
             <input
               name='creation_name'
               id='creation_name'
               type='text'/>
           </div>
-          <div className='user_name_div'>
+          <div className='input-and-label'>
             <label htmlFor='user_name'>
               Take credit:
             </label>
