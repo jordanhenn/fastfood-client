@@ -16,7 +16,8 @@ class FinalPage extends Component {
     sauce: {},
     price: null,
     priceCalculated: false,
-    postedCreation: {}
+    postedCreation: {},
+    error: null
   }
 
   renderButton = () => {
@@ -67,7 +68,16 @@ class FinalPage extends Component {
 
   handlePost = (e) => {
     e.preventDefault()
+    this.setState({
+      error: null
+    })
     const { user_name, creation_name } = e.target
+    if (user_name.value === '' || creation_name.value === '') {
+      this.setState({
+        error: '**You must name your creation and take credit for it.**'
+      })
+      return
+    } 
     const bun_id = this.state.bun.id
     const fillingOne_id = this.state.fillingOne.id
     const fillingTwo_id = this.state.fillingTwo.id
@@ -142,7 +152,8 @@ class FinalPage extends Component {
       posted: false,
       priceCalculated: false,
       price: null,
-      postedCreation: {}
+      postedCreation: {},
+      error: null
     })
   }
 
@@ -185,6 +196,7 @@ class FinalPage extends Component {
           className='PostForm'
           onSubmit={this.handlePost}
         >
+          {this.state.error && this.state.error}
           <div className='input-and-label'>
             <label htmlFor='creation_name'>
               Name it:
