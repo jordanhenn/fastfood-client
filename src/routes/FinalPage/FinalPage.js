@@ -57,8 +57,10 @@ class FinalPage extends Component {
       bunPrice = items.find(item => item.bun_id === bun.id).price
     }
 
+    console.log(fillingOneItem.price, fillingTwoItem.price, bunPrice)
+
     this.setState({
-      price: parseFloat(fillingOneItem.price + fillingTwoItem.price + bunPrice),
+      price: parseFloat(fillingOneItem.price) + parseFloat(fillingTwoItem.price) + parseFloat(bunPrice),
       priceCalculated: true
     })
   }
