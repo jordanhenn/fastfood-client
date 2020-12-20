@@ -58,7 +58,7 @@ class FinalPage extends Component {
     }
 
     this.setState({
-      price: parseFloat((fillingOneItem.price + fillingTwoItem.price + bunPrice).toFixed(2)),
+      price: parseFloat(fillingOneItem.price + fillingTwoItem.price + bunPrice),
       priceCalculated: true
     })
   }
