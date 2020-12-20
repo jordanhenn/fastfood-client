@@ -18,12 +18,17 @@ const FastFoodContext = React.createContext({
 export default FastFoodContext
 
 export class FastFoodProvider extends Component {
-  state = {
-    bun: null,
-    sauce: null,
-    filling: null,
-    price: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = 
+      props.testState || {
+        bun: null,
+        sauce: null,
+        fillingOne: null,
+        fillingTwo: null,
+        price: null
+    }; 
+  }
 
   setBun = bun => {
     this.setState({ bun })

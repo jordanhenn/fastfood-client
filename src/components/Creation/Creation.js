@@ -15,7 +15,6 @@ class Creation extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.bun_id, this.props.fillingone_id, this.props.fillingtwo_id, this.props.sauce_id)
     FoodApiService.getBunById(this.props.bun_id)
       .then(bun => {
         this.setState({
