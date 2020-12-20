@@ -44,12 +44,9 @@ class FinalPage extends Component {
 
   calculatePrice = () => {
     const { fillingOne, fillingTwo, bun, items } = this.state
-    console.log(fillingOne, fillingTwo, bun, items)
 
     const fillingOneItem = items.find(item => item.filling_id === fillingOne.id)
     const fillingTwoItem = items.find(item => item.filling_id === fillingTwo.id)
-
-    console.log(fillingOneItem, fillingTwoItem)
 
     let bunPrice
     if (fillingOneItem.bun_id === bun.id || fillingTwoItem.bun_id === bun.id) {
@@ -61,7 +58,7 @@ class FinalPage extends Component {
     }
 
     this.setState({
-      price: fillingOneItem.price + fillingTwoItem.price + bunPrice,
+      price: parseFloat((fillingOneItem.price + fillingTwoItem.price + bunPrice).toFixed(2)),
       priceCalculated: true
     })
   }
