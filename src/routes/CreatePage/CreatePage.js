@@ -106,7 +106,7 @@ class CreatePage extends Component {
 
   render() {
     return (
-      <div className='create-area'>
+      <form className='create-area'>
           <p className='directions'>
               Select the bun, sauce, and fillings for your new creation below.
             </p> 
@@ -185,7 +185,7 @@ class CreatePage extends Component {
           <div className='button-area'>
           <Link style={{ textDecoration: 'none' }} to={'/final'}>CREATE</Link>
           </div>
-      </div>
+      </form>
     ) 
 }
 }

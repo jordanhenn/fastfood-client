@@ -5,11 +5,16 @@
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(49, 146, 179);
+    background-color: rgb(40, 123, 151);
     width: 80%;
     max-width: 500px;
     border-radius: 10px;
     margin-bottom: 5px;
+}
+
+.nav-link {
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .nav-link:hover {

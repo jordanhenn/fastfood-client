@@ -7,6 +7,11 @@
     margin-right: auto;
 }
 
+.nav-link-mobile {
+  font-weight: bold;
+  font-size: 14px;
+}
+
 .nav-link-mobile:hover {
     text-decoration: underline;
 }
